@@ -6,7 +6,7 @@ import 'react-native-reanimated';
 import "../global.css";
 
 export const unstable_settings = {
-  anchor: '(tabs)',
+  anchor: '(initial)',
 };
 
 export default function RootLayout() {
@@ -15,7 +15,7 @@ export default function RootLayout() {
     <FontProvider>
       <ThemeProvider>
         <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(initial)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
         </Stack>
         <StatusBar style="auto" />

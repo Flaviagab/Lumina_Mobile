@@ -1,28 +1,21 @@
-import { Text, View } from "react-native";
-
-
+import { useTheme } from "@/contexts/theme";
+import { View } from "react-native";
+import { H1, H3 } from "./Text";
 type Props = {
     userName: string,
-    explore: () => void;
-    profile: () => void;
 }
 
 export const HomeHeader = (props: Props) => {
+    const { theme, radius, space } = useTheme();
     return (
-        <View className="w-full bg-purple-400 dark:bg-purple-800 rounded-b-[30px] px-6 pt-12 pb-6">
+        <View className="w-full rounded-b-[30px] px-6 pt-12 pb-6"
+            style={{ backgroundColor: theme.secondaryBg }}>
 
-            <Text className="mt-2 text-3xl font-bold text-white">Lumina</Text>
+            <H3>Olá, {props.userName}</H3>
 
-            <View className="mt-8 flex-row items-center gap-4">
+            <H1>Ilumine sua leitura</H1>
 
-                <Text >Olá, {props.userName}</Text>
-                <Text >Ilumine sua leitura</Text>
 
-                
-
-            </View>
-
-           
         </View>
     )
 }
