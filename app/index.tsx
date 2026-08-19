@@ -1,3 +1,5 @@
+import { HomeHeader } from "@/components/HomeHeader";
+import { router } from "expo-router";
 import { ScrollView, StyleSheet, View } from "react-native";
 
 export default function Index() {
@@ -10,7 +12,11 @@ export default function Index() {
             [styles.container]
           }>
             
-
+<HomeHeader
+    userName="Ana Júlia"
+    explore={() => router.push("/")}
+    profile={() => router.push("/")}
+/>
 
         </View>
       </ScrollView>
