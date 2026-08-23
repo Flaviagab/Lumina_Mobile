@@ -1,5 +1,5 @@
 import { HomeHeader } from "@/components/HomeHeader";
-import { useTheme } from "@/contexts/theme";
+import { useTheme } from "@/contexts/theme/themeContext";
 import { View } from "react-native";
 
 export default function Home() {

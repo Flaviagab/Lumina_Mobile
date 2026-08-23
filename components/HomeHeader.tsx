@@ -1,4 +1,4 @@
-import { useTheme } from "@/contexts/theme";
+import { useTheme } from "@/contexts/theme/themeContext";
 import { View } from "react-native";
 import { H1, H3 } from "./Text";
 type Props = {

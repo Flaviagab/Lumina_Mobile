@@ -1,5 +1,5 @@
 import { FontProvider } from "@/components/FontProvider";
-import { ThemeProvider } from "@/contexts/theme";
+import { ThemeProvider } from "@/contexts/theme/themeContext";
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
