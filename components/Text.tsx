@@ -3,13 +3,14 @@ import { Text } from "react-native";
 
 type Props = {
     children: React.ReactNode
+    color?: string;
 }
 export const H1 = (props: Props) => {
     const { theme, font, fontSize } = useTheme()
     return (
         <Text
             style={{
-                color: theme.bodyColor,
+                color: props.color ?? theme.bodyColor,
                 fontSize: fontSize.h1,
                 fontFamily: font.baseBold,
             }}
@@ -22,7 +23,7 @@ export const H2 = (props: Props) => {
     return (
         <Text
             style={{
-                color: theme.bodyColor,
+                color:  props.color ?? theme.bodyColor,
                 fontSize: fontSize.h2,
                 fontFamily: font.baseBold,
             }}
@@ -37,7 +38,7 @@ export const H3 = (props: Props) => {
     return (
         <Text
             style={{
-                color: theme.bodyColor,
+                color:  props.color ?? theme.bodyColor,
                 fontSize: fontSize.h4,
                 fontFamily: font.base,
             }}

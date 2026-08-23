@@ -3,15 +3,17 @@ export const DARK = {
     secondaryBg: "#5A0CA2",
     bodyColor: "#F9EEF9",
     activeIcon: "#97EADF",
-    inactiveIcon: "#F4F4EF"
+    inactiveIcon: "#F4F4EF",
+    primaryText: "#E9DAF7"
 };
 
 export const LIGHT = {
     bodyBg: "#F4F4EF",
     secondaryBg: "#9d68de",
-    bodyColor: "#F9EEF9",
+    bodyColor: "#512777",
     activeIcon: "#97EADF",
-    inactiveIcon: "#F4F4EF"
+    inactiveIcon: "#F4F4EF",
+    primaryText: "#F7EEFF"
 };
 
 export const FONT = {
