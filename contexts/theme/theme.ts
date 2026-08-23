@@ -2,12 +2,16 @@ export const DARK = {
     bodyBg: "#070709",
     secondaryBg: "#5A0CA2",
     bodyColor: "#F9EEF9",
+    activeIcon: "#97EADF",
+    inactiveIcon: "#F4F4EF"
 };
 
 export const LIGHT = {
     bodyBg: "#F4F4EF",
     secondaryBg: "#9d68de",
     bodyColor: "#F9EEF9",
+    activeIcon: "#97EADF",
+    inactiveIcon: "#F4F4EF"
 };
 
 export const FONT = {
