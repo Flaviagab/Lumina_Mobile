@@ -1,7 +1,6 @@
-import { DARK, FONT, FONT_SIZE, LIGHT, RADIUS, SPACE } from "@/contexts/theme/theme";
-import { createContext, useContext, useEffect, useState } from "react";
-import { useColorScheme } from "react-native";
-
+import { DARK, FONT, FONT_SIZE, RADIUS, SPACE, THEMES } from "@/contexts/theme/theme";
+import { useColorScheme } from "nativewind";
+import { createContext, useContext, useMemo } from "react";
 
 type ThemeColor = "light" | "dark";
 
@@ -22,45 +21,24 @@ type Props = {
 };
 
 export const ThemeProvider = ({ children }: Props) => {
-    const colorSchema = useColorScheme();
-    const [color, setColor] = useState<ThemeColor>((colorSchema as ThemeColor) ?? "light");
-    const [theme, setTheme] = useState(colorSchema === "light" ? LIGHT : DARK);
+    const { colorScheme, toggleColorScheme } = useColorScheme();
+    const color: ThemeColor = colorScheme === "dark" ? "dark" : "light";
+    const theme = THEMES[color];
 
-    const toggleTheme = () => {
-        if (color === "light") {
-            setTheme(DARK);
-            setColor("dark");
-        } else {
-            setTheme(LIGHT);
-            setColor("light");
-        }
-    };
-
-    useEffect(() => {
-        if (colorSchema === "light") {
-            setTheme(LIGHT);
-            setColor("light");
-        } else {
-            setTheme(DARK);
-            setColor("dark");
-        }
-    }, [colorSchema]);
-
-    return (
-        <ThemeContext.Provider
-            value={{
-                currentColor: color,
-                theme: theme,
-                font: FONT,
-                fontSize: FONT_SIZE,
-                radius: RADIUS,
-                space: SPACE,
-                toggleTheme: toggleTheme,
-            }}
-        >
-            {children}
-        </ThemeContext.Provider>
+    const value = useMemo(
+        () => ({
+            currentColor: color,
+            theme,
+            font: FONT,
+            fontSize: FONT_SIZE,
+            radius: RADIUS,
+            space: SPACE,
+            toggleTheme: toggleColorScheme,
+        }),
+        [color, theme]
     );
+
+    return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 };
 
 export const useTheme = () => {

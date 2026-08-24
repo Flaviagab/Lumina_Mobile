@@ -16,6 +16,8 @@ export const LIGHT = {
     primaryText: "#F7EEFF"
 };
 
+export const THEMES = { light: LIGHT, dark: DARK };
+
 export const FONT = {
     headingFamily: "Lato_900Black",
     base: "Lato_400Regular",
