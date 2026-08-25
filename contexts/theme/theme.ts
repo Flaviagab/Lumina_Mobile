@@ -4,7 +4,8 @@ export const DARK = {
     bodyColor: "#F9EEF9",
     activeIcon: "#97EADF",
     inactiveIcon: "#F4F4EF",
-    primaryText: "#E9DAF7"
+    primaryText: "#E9DAF7",
+    danger: "#EF4444"
 };
 
 export const LIGHT = {
@@ -13,7 +14,8 @@ export const LIGHT = {
     bodyColor: "#512777",
     activeIcon: "#97EADF",
     inactiveIcon: "#F4F4EF",
-    primaryText: "#F7EEFF"
+    primaryText: "#F7EEFF",
+    danger: "#DC2626"
 };
 
 export const THEMES = { light: LIGHT, dark: DARK };

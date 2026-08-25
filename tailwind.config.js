@@ -12,12 +12,14 @@ module.exports = {
                 bodyColor: LIGHT.bodyColor,
                 activeIcon: LIGHT.activeIcon,
                 inactiveIcon: LIGHT.inactiveIcon,
+                danger: LIGHT.danger,
                 dark: {
                     bodyBg: DARK.bodyBg,
                     secondaryBg: DARK.secondaryBg,
                     bodyColor: DARK.bodyColor,
                     activeIcon: DARK.activeIcon,
                     inactiveIcon: DARK.inactiveIcon,
+                    danger: DARK.danger
                 },
             },
     },
