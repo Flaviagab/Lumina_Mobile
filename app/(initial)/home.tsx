@@ -1,32 +1,42 @@
 import { CategoryCarousel } from "@/components/Category/CategoryCarousel";
 import { HomeHeader } from "@/components/HomeHeader";
-import { useState } from "react";
+import { getCategories } from "@/services/categories";
+import { useEffect, useState } from "react";
 import { View } from "react-native";
 
-type Categoria = {
+type Category = {
     id: string;
-    nome: string;
+    name: string;
 };
 
-const CATEGORIAS_MOCK: Categoria[] = [
-    { id: "1", nome: "Fantasia" },
-    { id: "2", nome: "Terror" },
-    { id: "3", nome: "Infantil" },
-    { id: "4", nome: "Suspense" },
-    { id: "5", nome: "Romance" },
-];
-
 export default function Home() {
+    const [categories, setCategories] = useState<Category[]>([]);
     const [selecionadaId, setSelecionadaId] = useState<string>();
+
+    useEffect(() => {
+        async function loadCategories() {
+            const response = await getCategories();
+
+            console.log("Resposta das categorias:", response);
+
+            if (response.ok) {
+                setCategories(response.data);
+            } else {
+                console.log("Erro ao buscar categorias:", response.data);
+            }
+        }
+
+        loadCategories();
+    }, []);
 
     return (
         <View className="flex-1 bg-bodyBg dark:bg-dark-bodyBg">
             <HomeHeader userName="Ana Júlia" />
 
             <CategoryCarousel
-                categorias={CATEGORIAS_MOCK}
+                categories={categories}
                 selecionadaId={selecionadaId}
-                onSelect={(categoria) => setSelecionadaId(categoria.id)}
+                onSelect={(category) => setSelecionadaId(category.id)}
             />
         </View>
     );

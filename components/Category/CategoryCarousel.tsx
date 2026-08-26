@@ -1,21 +1,21 @@
 import { FlatList } from "react-native";
 import { CategoryChip } from "./CategoryChip";
 
-type Categoria = {
+type Category = {
     id: string;
-    nome: string;
+    name: string;
 };
 
 type Props = {
-    categorias: Categoria[];
+    categories: Category[];
     selecionadaId?: string;
-    onSelect: (categoria: Categoria) => void;
+    onSelect: (categories: Category) => void;
 };
 
-export const CategoryCarousel = ({ categorias, selecionadaId, onSelect }: Props) => {
+export const CategoryCarousel = (props: Props) => {
     return (
         <FlatList
-            data={categorias}
+            data={props.categories}
             horizontal
             showsHorizontalScrollIndicator={false}
             keyExtractor={(item) => item.id}
@@ -23,9 +23,9 @@ export const CategoryCarousel = ({ categorias, selecionadaId, onSelect }: Props)
             contentContainerClassName="gap-2 px-4"
             renderItem={({ item }) => (
                 <CategoryChip
-                    label={item.nome}
-                    selected={item.id === selecionadaId}
-                    onPress={() => onSelect(item)}
+                    label={item.name}
+                    selected={item.id === props.selecionadaId}
+                    onPress={() => props.onSelect(item)}
                 />
             )}
         />
