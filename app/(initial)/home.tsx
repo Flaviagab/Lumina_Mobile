@@ -1,17 +1,13 @@
 import { CategoryCarousel } from "@/components/Category/CategoryCarousel";
 import { HomeHeader } from "@/components/HomeHeader";
 import { getCategories } from "@/services/categories";
+import type { Category } from "@/types/category";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 
-type Category = {
-    id: string;
-    name: string;
-};
-
 export default function Home() {
     const [categories, setCategories] = useState<Category[]>([]);
-    const [selecionadaId, setSelecionadaId] = useState<string>();
+    const [selectedId, setSelectedId] = useState<string>();
 
     useEffect(() => {
         async function loadCategories() {
@@ -35,8 +31,8 @@ export default function Home() {
 
             <CategoryCarousel
                 categories={categories}
-                selecionadaId={selecionadaId}
-                onSelect={(category) => setSelecionadaId(category.id)}
+                selectedId={selectedId}
+                onSelect={(category) => setSelectedId(category.id)}
             />
         </View>
     );

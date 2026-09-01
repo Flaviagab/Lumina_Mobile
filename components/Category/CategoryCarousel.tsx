@@ -1,14 +1,10 @@
+import type { Category } from "@/types/category";
 import { FlatList } from "react-native";
 import { CategoryChip } from "./CategoryChip";
 
-type Category = {
-    id: string;
-    name: string;
-};
-
 type Props = {
     categories: Category[];
-    selecionadaId?: string;
+    selectedId?: string;
     onSelect: (categories: Category) => void;
 };
 
@@ -24,7 +20,7 @@ export const CategoryCarousel = (props: Props) => {
             renderItem={({ item }) => (
                 <CategoryChip
                     label={item.name}
-                    selected={item.id === props.selecionadaId}
+                    selected={item.id === props.selectedId}
                     onPress={() => props.onSelect(item)}
                 />
             )}
