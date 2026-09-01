@@ -4,6 +4,7 @@ type Props = {
     children: string;
     onPress?: () => void;
     variant?: "filled" | "outline";
+    className?: string;
 }
 
 export const Button = (props: Props) => {
@@ -11,8 +12,11 @@ export const Button = (props: Props) => {
     const textStyle = props.variant === "outline" ? "text-[#7573A8] dark:text-[#9A98D1]" : "text-white";
 
     return (
-        <TouchableOpacity onPress={props.onPress} className={`w-40 h-[50px] rounded-full justify-center items-center mb-5 ${buttonStyle}`}>
+        <TouchableOpacity
+            onPress={props.onPress}
+            className={`w-40 h-[50px] rounded-full justify-center items-center mb-5 ${buttonStyle} ${props.className ?? ""}`}
+        >
             <Text className={`font-bold text-xl ${textStyle}`}>{props.children}</Text>
         </TouchableOpacity>
     )
-}   
+}
