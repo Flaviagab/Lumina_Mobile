@@ -12,8 +12,6 @@ export default function Authors() {
         async function loadAuthors() {
             const response = await getAuthors();
 
-            console.log("Resposta dos autores:", response);
-
             if (response.ok) {
                 setAuthors(response.data);
             } else {

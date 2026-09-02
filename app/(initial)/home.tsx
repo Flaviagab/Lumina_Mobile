@@ -13,8 +13,6 @@ export default function Home() {
         async function loadCategories() {
             const response = await getCategories();
 
-            console.log("Resposta das categorias:", response);
-
             if (response.ok) {
                 setCategories(response.data);
             } else {
