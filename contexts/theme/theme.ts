@@ -5,7 +5,10 @@ export const DARK = {
     activeIcon: "#97EADF",
     inactiveIcon: "#F4F4EF",
     primaryText: "#E9DAF7",
-    danger: "#EF4444"
+    danger: "#EF4444",
+    cardBg: "#1F2937",
+    textPrimary: "#F3F4F6",
+    borderPrimary: "#6B7280"
 };
 
 export const LIGHT = {
@@ -15,7 +18,10 @@ export const LIGHT = {
     activeIcon: "#97EADF",
     inactiveIcon: "#F4F4EF",
     primaryText: "#F7EEFF",
-    danger: "#DC2626"
+    danger: "#DC2626",
+    cardBg: "#F4F4EF",
+    textPrimary: "#1F2937",
+    borderPrimary: "#374151"
 };
 
 export const THEMES = { light: LIGHT, dark: DARK };
