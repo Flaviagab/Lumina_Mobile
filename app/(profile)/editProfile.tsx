@@ -1,7 +1,6 @@
 import { Button } from "@/components/Button";
 import { EditPhotoButton } from "@/components/EditPhotoButton";
 import { IconButton } from "@/components/IconButton";
-
 import { Input } from "@/components/Input";
 import { InputSenha } from "@/components/InputSenha";
 import { ProfilePicture } from "@/components/ProfilePicture";

@@ -70,6 +70,7 @@ export default function Register() {
         formData.append("cpf", data.cpf.replace(/\D/g, ""));
         formData.append("email", data.email);
         formData.append("senha", data.password);
+        formData.append("confirmarSenha", data.confirmPassword);
 
         if (profileImage) {
             const fileName =
