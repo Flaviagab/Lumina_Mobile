@@ -1,4 +1,3 @@
-// app/_layout.tsx
 import { FontProvider } from "@/components/FontProvider";
 import { AuthProvider, useAuth } from "@/contexts/auth/AuthContext";
 import { ThemeProvider } from "@/contexts/theme/themeContext";

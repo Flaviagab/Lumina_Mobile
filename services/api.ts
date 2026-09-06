@@ -5,7 +5,7 @@ import { Platform } from "react-native";
 
 const HOST = Platform.select({
     android: "http://10.0.2.2:3000",
-    default: "http://255.255.255.0"
+    default: "http://192.168.1.163:3000"
 });
 
 export const api = axios.create({
