@@ -77,7 +77,7 @@ export default function Profile() {
     return (
         <SafeAreaView className="flex-1 bg-bodyBg dark:bg-dark-bodyBg items-center justify-center px-3 gap-4">
             <H1 className="text-center m-2">Perfil</H1>
-            <View className="absolute top-16 right-9">
+            <View className="absolute top-28 right-9">
                 <ThemeButton />
             </View>
 
