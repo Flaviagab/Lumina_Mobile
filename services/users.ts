@@ -12,9 +12,7 @@ export async function getUsers() {
 
 export async function createUser(data: FormData) {
     try {
-        const response = await api.post("/usuarios", data, {
-            headers: { "Content-Type": "multipart/form-data" },
-        });
+        const response = await api.post("/usuarios", data);
         return handleResponse(response);
     } catch (error) {
         return handleError(error);
@@ -32,9 +30,7 @@ export async function loginUser(data: { email: string; senha: string }) {
 
 export async function updateUser(id: number, data: FormData) {
     try {
-        const response = await api.put("/usuarios/" + id, data, {
-            headers: { "Content-Type": "multipart/form-data" },
-        });
+        const response = await api.put("/usuarios/" + id, data);
         return handleResponse(response);
     } catch (error) {
         return handleError(error);

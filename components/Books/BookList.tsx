@@ -1,4 +1,3 @@
-// components/Book/BookList.tsx
 import type { Book } from "@/types/book";
 import { FlatList } from "react-native";
 import { BookCard } from "./BookCard";

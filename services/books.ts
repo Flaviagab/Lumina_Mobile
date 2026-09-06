@@ -59,3 +59,7 @@ export async function deleteBook(id: number, data: FormData){
         return handleError(error)
     }
 }
+
+export function getBookPdfUrl(filename: string) {
+    return `http://10.0.2.2:3000/uploads/${filename}`;
+}

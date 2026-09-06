@@ -15,7 +15,7 @@ export const CategoryCarousel = (props: Props) => {
             horizontal
             showsHorizontalScrollIndicator={false}
             keyExtractor={(item) => item.id}
-            className="flex-grow-0 pt-5"
+            className="flex-grow-0 pt-5 mb-10 mt-2"
             contentContainerClassName="gap-2 px-4"
             renderItem={({ item }) => (
                 <CategoryChip

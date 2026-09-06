@@ -1,54 +1,52 @@
-import { EditPhotoButton } from "@/components/EditPhotoButton";
 import { IconButton } from "@/components/IconButton";
 import { InfoRow } from "@/components/InfoRow";
 import { ProfilePicture } from "@/components/ProfilePicture";
 import { H1 } from "@/components/Text";
 import { ThemeButton } from "@/components/ThemeButton";
-import * as ImagePicker from "expo-image-picker";
-import { useRouter } from "expo-router";
-import { useState } from "react";
-import { Alert, View } from "react-native";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { getProfile } from "@/services/users";
+import { useFocusEffect, useRouter } from "expo-router";
+import { useCallback, useState } from "react";
+import { ActivityIndicator, Alert, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 type Usuario = {
-    id: string;
+    id_usuario: number;
     nome: string;
     email: string;
-    fotoURL: string;
-};
-
-const USUARIO_MOCK: Usuario = {
-    id: "1",
-    nome: "Ana Júlia",
-    email: "ana.julia@email.com",
-    fotoURL: "https://i.pinimg.com/736x/51/68/0f/51680f80d426669e16c3c9e2580bc584.jpg",
+    foto_perfil: string | null;
 };
 
 export default function Profile() {
-    const [usuario, setUsuario] = useState<Usuario>(USUARIO_MOCK);
+    const [usuario, setUsuario] = useState<Usuario | null>(null);
+    const [loading, setLoading] = useState(true);
+
     const router = useRouter();
+    const { logout } = useAuth();
 
-    const selectUserPhoto = async () => {
-        const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    useFocusEffect(
+        useCallback(() => {
+            async function carregarPerfil() {
+                const response = await getProfile();
 
-        if (!permissionResult.granted) {
-            Alert.alert("Erro", "Preciso de permissão para acessar a galeria...");
-            return;
-        }
+                if (!response.ok) {
+                    Alert.alert(
+                        "Erro",
+                        response.data?.mensagem ?? "Não foi possível carregar o perfil."
+                    );
+                    return;
+                }
 
-        const result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ["images"],
-            allowsEditing: true,
-            aspect: [1, 1],
-            quality: 1,
-        });
+                setUsuario(response.data);
+                setLoading(false);
+            }
 
-        if (result.canceled) return;
+            carregarPerfil();
+        }, [])
+    );
 
-        setUsuario((prev) => ({ ...prev, fotoURL: result.assets![0].uri }));
-    };
-
-    const sair = () => {
+    const sair = async () => {
+        await logout();
         router.replace("/");
     };
 
@@ -59,10 +57,8 @@ export default function Profile() {
             [
                 { text: "Cancelar", style: "cancel" },
                 {
-                    text: "Excluir",
-                    style: "destructive",
-                    onPress: () => {
-
+                    text: "Excluir", style: "destructive", onPress: async () => {
+                        await logout();
                         router.replace("/");
                     },
                 },
@@ -70,15 +66,23 @@ export default function Profile() {
         );
     };
 
+    if (loading || !usuario) {
+        return (
+            <SafeAreaView className="flex-1 bg-bodyBg dark:bg-dark-bodyBg items-center justify-center">
+                <ActivityIndicator />
+            </SafeAreaView>
+        );
+    }
+
     return (
-        <SafeAreaView className="flex-1 bg-bodyBg dark:bg-dark-bodyBg items-center justify-center px-6 gap-4">
+        <SafeAreaView className="flex-1 bg-bodyBg dark:bg-dark-bodyBg items-center justify-center px-3 gap-4">
+            <H1 className="text-center m-2">Perfil</H1>
             <View className="absolute top-16 right-9">
                 <ThemeButton />
             </View>
 
             <View className="relative">
-                <ProfilePicture fotoUrl={usuario.fotoURL} />
-                <EditPhotoButton onPress={selectUserPhoto} />
+                <ProfilePicture fotoUrl={usuario.foto_perfil} />
             </View>
 
             <H1>{usuario.nome}</H1>
@@ -89,7 +93,10 @@ export default function Profile() {
             </View>
 
             <View className="w-full gap-1 mt-2">
-                <IconButton icon="edit-2" onPress={() => router.push("/")}>
+                <IconButton
+                    icon="edit-2"
+                    onPress={() => router.push("/editProfile")}
+                >
                     Editar perfil
                 </IconButton>
 
@@ -97,7 +104,11 @@ export default function Profile() {
                     Deslogar
                 </IconButton>
 
-                <IconButton icon="trash-2" variant="danger" onPress={excluir}>
+                <IconButton
+                    icon="trash-2"
+                    variant="danger"
+                    onPress={excluir}
+                >
                     Excluir minha conta
                 </IconButton>
             </View>

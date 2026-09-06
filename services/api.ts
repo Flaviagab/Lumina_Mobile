@@ -1,11 +1,11 @@
+import { emitUnauthorized } from "@/contexts/auth/AuthEvents";
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 import { Platform } from "react-native";
 
 const HOST = Platform.select({
     android: "http://10.0.2.2:3000",
-    ios: "http://localhost:3000",
-    default: "//localhost:3000"
+    default: "http://192.168.1.163:3000"
 });
 
 export const api = axios.create({
@@ -20,3 +20,13 @@ api.interceptors.request.use(async (config) => {
     }
     return config;
 });
+
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response?.status === 401) {
+            emitUnauthorized();
+        }
+        return Promise.reject(error);
+    }
+);
