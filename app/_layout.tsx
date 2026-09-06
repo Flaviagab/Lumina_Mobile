@@ -2,7 +2,6 @@ import { FontProvider } from "@/components/FontProvider";
 import { AuthProvider, useAuth } from "@/contexts/auth/AuthContext";
 import { ThemeProvider } from "@/contexts/theme/themeContext";
 import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, View } from "react-native";
 import 'react-native-reanimated';
 import "../global.css";
@@ -13,7 +12,6 @@ export default function RootLayout() {
             <FontProvider>
                 <ThemeProvider>
                     <RootNavigator />
-                    <StatusBar style="auto" />
                 </ThemeProvider>
             </FontProvider>
         </AuthProvider>
