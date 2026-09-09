@@ -1,3 +1,4 @@
+import { Button } from "@/components/Button";
 import { IconButton } from "@/components/IconButton";
 import { InfoRow } from "@/components/InfoRow";
 import { ProfilePicture } from "@/components/ProfilePicture";
@@ -20,6 +21,7 @@ type Usuario = {
 export default function Profile() {
     const [usuario, setUsuario] = useState<Usuario | null>(null);
     const [loading, setLoading] = useState(true);
+    const { user } = useAuth();
 
     const router = useRouter();
     const { logout } = useAuth();
@@ -92,7 +94,17 @@ export default function Profile() {
                 <InfoRow label="Email" value={usuario.email} />
             </View>
 
-            <View className="w-full gap-1 mt-2">
+            <View className="w-full gap-1 mt-2 mb-4 items-center">
+                {user?.role === "admin" && (
+                    <Button
+                        variant="filled"
+                        className="w-64"
+                        onPress={() => router.push("/(admin)")}
+                    >
+                        Painel do Administrador
+                    </Button>
+                )}
+
                 <IconButton
                     icon="edit-2"
                     onPress={() => router.push("/editProfile")}

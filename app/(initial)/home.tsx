@@ -6,13 +6,14 @@ import { getBookPdfUrl, getBooks, getFeaturedBooks } from "@/services/books";
 import { getCategories } from "@/services/categories";
 import type { Book } from "@/types/book";
 import type { Category } from "@/types/category";
+import { useFocusEffect } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { ScrollView } from "react-native";
 
 export default function Home() {
     const [categories, setCategories] = useState<Category[]>([]);
-    const [selectedId, setSelectedId] = useState<string>();
+    const [selectedId, setSelectedId] = useState<number>();
     const [featuredBooks, setFeaturedBooks] = useState<Book[]>([]);
     const [newBooks, setNewBooks] = useState<Book[]>([]);
     const [popularBooks, setPopularBooks] = useState<Book[]>([]);
@@ -36,45 +37,47 @@ export default function Home() {
         setSelectedBook(book);
     }
 
-    useEffect(() => {
-        async function loadCategories() {
-            const response = await getCategories();
+    async function loadCategories() {
+        const response = await getCategories();
 
-            if (response.ok) {
-                setCategories(response.data);
-            } else {
-                console.log("Erro ao buscar categorias:", response.data);
-            }
+        if (response.ok) {
+            setCategories(response.data);
+        } else {
+            console.log("Erro ao buscar categorias:", response.data);
         }
+    }
 
-        async function loadFeaturedBooks() {
-            const response = await getFeaturedBooks();
+    async function loadFeaturedBooks() {
+        const response = await getFeaturedBooks();
 
-            if (response.ok) {
-                setFeaturedBooks(response.data);
-            } else {
-                console.log(
-                    "Erro ao buscar livros em destaque:",
-                    response.data
-                );
-            }
+        if (response.ok) {
+            setFeaturedBooks(response.data);
+        } else {
+            console.log(
+                "Erro ao buscar livros em destaque:",
+                response.data
+            );
         }
+    }
 
-        async function loadBooks() {
-            const response = await getBooks();
+    async function loadBooks() {
+        const response = await getBooks();
 
-            if (response.ok) {
-                setNewBooks(getRandomBooks(response.data, 5));
-                setPopularBooks(getRandomBooks(response.data, 5));
-            } else {
-                console.log("Erro ao buscar livros:", response.data);
-            }
+        if (response.ok) {
+            setNewBooks(getRandomBooks(response.data, 5));
+            setPopularBooks(getRandomBooks(response.data, 5));
+        } else {
+            console.log("Erro ao buscar livros:", response.data);
         }
+    }
 
-        loadCategories();
-        loadFeaturedBooks();
-        loadBooks();
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            loadCategories();
+            loadFeaturedBooks();
+            loadBooks();
+        }, [])
+    );
 
     return (
         <ScrollView className="flex-1 bg-bodyBg dark:bg-dark-bodyBg">

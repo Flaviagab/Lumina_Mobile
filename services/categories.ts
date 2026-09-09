@@ -1,5 +1,23 @@
+import { Category, CategoryInput } from "@/types/category";
 import { api } from "./api";
 import { handleError, handleResponse } from "./response";
+
+function mapCategory(category: any): Category {
+    return {
+        id: category.id_categoria,
+        name: category.nome,
+        description: category.descricao,
+        featured: category.destaque === 1 || category.destaque === true,
+    };
+}
+
+function mapCategoryInput(data: CategoryInput) {
+    return {
+        nome: data.name,
+        descricao: data.description,
+        destaque: data.featured,
+    };
+}
 
 export async function getCategories() {
     try {
@@ -7,10 +25,7 @@ export async function getCategories() {
         const result = handleResponse(response);
 
         if (result.ok) {
-            result.data = result.data.map((cat: any) => ({
-                id: cat.id_categoria,
-                name: cat.nome,
-            }));
+            result.data = result.data.map(mapCategory);
         }
 
         return result;
@@ -22,24 +37,45 @@ export async function getCategories() {
 export async function getFeaturedCategories() {
     try {
         const response = await api.get("/categorias/destaque");
+        const result = handleResponse(response);
+
+        if (result.ok) {
+            result.data = result.data.map(mapCategory);
+        }
+
+        return result;
+    } catch (error) {
+        return handleError(error);
+    }
+}
+
+export async function getCategoryById(id: number) {
+    try {
+        const response = await api.get("/categorias/" + id);
+        const result = handleResponse(response);
+
+        if (result.ok) {
+            result.data = mapCategory(result.data);
+        }
+
+        return result;
+    } catch (error) {
+        return handleError(error);
+    }
+}
+
+export async function createCategory(data: CategoryInput) {
+    try {
+        const response = await api.post("/categorias", mapCategoryInput(data));
         return handleResponse(response);
     } catch (error) {
         return handleError(error);
     }
 }
 
-export async function createCategory(data: unknown) {
+export async function updateCategory(id: number, data: CategoryInput) {
     try {
-        const response = await api.post("/categorias", data);
-        return handleResponse(response);
-    } catch (error) {
-        return handleError(error);
-    }
-}
-
-export async function updateCategory(id: number, data: unknown) {
-    try {
-        const response = await api.put("/categorias/" + id, data);
+        const response = await api.put("/categorias/" + id, mapCategoryInput(data));
         return handleResponse(response);
     } catch (error) {
         return handleError(error);
