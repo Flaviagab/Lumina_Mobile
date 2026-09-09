@@ -4,7 +4,7 @@ import { CategoryChip } from "./CategoryChip";
 
 type Props = {
     categories: Category[];
-    selectedId?: string;
+    selectedId?: number;
     onSelect: (categories: Category) => void;
 };
 
@@ -14,7 +14,7 @@ export const CategoryCarousel = (props: Props) => {
             data={props.categories}
             horizontal
             showsHorizontalScrollIndicator={false}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => String(item.id)}
             className="flex-grow-0 pt-5 mb-10 mt-2"
             contentContainerClassName="gap-2 px-4"
             renderItem={({ item }) => (

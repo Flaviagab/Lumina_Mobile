@@ -1,4 +1,12 @@
 export type Category = {
-    id: string;
+    id: number;
     name: string;
+    description: string;
+    featured: boolean;
+};
+
+export type CategoryInput = {
+    name: string;
+    description: string;
+    featured?: boolean;
 };

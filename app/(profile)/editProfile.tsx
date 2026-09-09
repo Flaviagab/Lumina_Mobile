@@ -1,6 +1,6 @@
+import { BackButton } from "@/components/BackButton";
 import { Button } from "@/components/Button";
 import { EditPhotoButton } from "@/components/EditPhotoButton";
-import { IconButton } from "@/components/IconButton";
 import { Input } from "@/components/Input";
 import { InputSenha } from "@/components/InputSenha";
 import { ProfilePicture } from "@/components/ProfilePicture";
@@ -158,9 +158,7 @@ export default function EditProfile() {
 
     return (
         <SafeAreaView className="flex-1 bg-bodyBg dark:bg-dark-bodyBg items-center justify-center px-6 gap-4">
-            <View className="absolute top-11 left-6 z-10">
-                <IconButton icon="arrow-left" onPress={() => router.back()}> </IconButton>
-            </View>
+           <BackButton/>
 
             <H1>Editar perfil</H1>
 
