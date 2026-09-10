@@ -5,7 +5,7 @@ import { ProfilePicture } from "@/components/ProfilePicture";
 import { H1 } from "@/components/Text";
 import { ThemeButton } from "@/components/ThemeButton";
 import { useAuth } from "@/contexts/auth/AuthContext";
-import { getProfile } from "@/services/users";
+import { deleteUser, getProfile } from "@/services/users";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useState } from "react";
 import { ActivityIndicator, Alert, View } from "react-native";
@@ -60,6 +60,17 @@ export default function Profile() {
                 { text: "Cancelar", style: "cancel" },
                 {
                     text: "Excluir", style: "destructive", onPress: async () => {
+                        const response = await deleteUser(usuario!.id_usuario);
+
+                        if (!response.ok) {
+                            Alert.alert(
+                                "Erro",
+                                response.data?.mensagem ?? "Não foi possível excluir sua conta."
+                            );
+                            return;
+                        }
+
+
                         await logout();
                         router.replace("/");
                     },
@@ -89,12 +100,11 @@ export default function Profile() {
 
             <H1>{usuario.nome}</H1>
 
-            <View className="w-full gap-3">
-                <InfoRow label="Nome" value={usuario.nome} />
+            <View className="w-full gap-3 ml-9 my-5">
                 <InfoRow label="Email" value={usuario.email} />
             </View>
 
-            <View className="w-full gap-1 mt-2 mb-4 items-center">
+            <View className="w-full gap-1 my-4 items-center">
                 {user?.role === "admin" && (
                     <Button
                         variant="filled"
@@ -105,24 +115,30 @@ export default function Profile() {
                     </Button>
                 )}
 
-                <IconButton
-                    icon="edit-2"
-                    onPress={() => router.push("/editProfile")}
-                >
-                    Editar perfil
-                </IconButton>
+                <View className="flex-row gap-4 mt-6">
+                    <IconButton
+                        icon="edit-2"
+                        className="rounded-xl h-16 w-40  justify-center"
+                        onPress={() => router.push("/editProfile")}>
+                        Editar perfil
+                    </IconButton>
 
-                <IconButton icon="log-out" onPress={sair}>
-                    Deslogar
-                </IconButton>
-
-                <IconButton
-                    icon="trash-2"
-                    variant="danger"
-                    onPress={excluir}
-                >
-                    Excluir minha conta
-                </IconButton>
+                    <IconButton
+                        icon="log-out"
+                        className="rounded-xl h-16 w-40 justify-center"
+                        onPress={sair}>
+                        Deslogar
+                    </IconButton>
+                </View>
+                <View className="mt-14 items-center">
+                    <IconButton
+                        icon="trash-2"
+                        variant="danger"
+                        onPress={excluir}
+                    >
+                        Excluir minha conta
+                    </IconButton>
+                </View>
             </View>
         </SafeAreaView>
     );
