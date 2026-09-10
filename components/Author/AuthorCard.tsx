@@ -1,5 +1,5 @@
 import { Button } from "@/components/Button";
-import { api } from "@/services/api";
+import { getAuthorPhotoUrl } from "@/services/authors";
 import type { Author } from "@/types/author";
 import { Image, Text, View } from "react-native";
 
@@ -10,9 +10,7 @@ type AuthorCardProps = {
 };
 
 export function AuthorCard({ author, onViewBooks, onViewMore }: AuthorCardProps) {
-    const imageUrl = author.foto
-        ? `${api.defaults.baseURL}/uploads/${author.foto}`
-        : null;
+    const imageUrl = author.photo ? getAuthorPhotoUrl(author.photo) : null;
 
     return (
         <View className="flex-row bg-cardBg dark:bg-dark-cardBg rounded-md mb-4 overflow-hidden border border-borderPrimary dark:border-dark-borderPrimary">
@@ -31,7 +29,7 @@ export function AuthorCard({ author, onViewBooks, onViewMore }: AuthorCardProps)
                     numberOfLines={2}
                     className="text-lg font-medium text-textPrimary dark:text-dark-textPrimary mb-3"
                 >
-                    {author.nome}
+                    {author.name}
                 </Text>
 
                 <View className="flex-row gap-2">

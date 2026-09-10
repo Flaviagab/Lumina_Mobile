@@ -9,7 +9,8 @@ import { getAuthors } from "@/services/authors";
 import { createBook, getBookById, updateBook } from "@/services/books";
 import { getCategories } from "@/services/categories";
 import { getPublishers } from "@/services/publishers";
-import { Author, BookInput, Publisher } from "@/types/book";
+import { Author } from "@/types/author";
+import { BookInput, Publisher } from "@/types/book";
 import { Category } from "@/types/category";
 import { formatPrice } from "@/utils/masks";
 import * as DocumentPicker from "expo-document-picker";
@@ -228,7 +229,7 @@ export default function BookForm() {
                         <Select
                             label="Autor"
                             value={authorId}
-                            options={authors.map((author) => ({ label: author.nome, value: author.id_autor }))}
+                            options={authors.map((author) => ({ label: author.name, value: author.id }))}
                             onChange={setAuthorId}
                         />
 

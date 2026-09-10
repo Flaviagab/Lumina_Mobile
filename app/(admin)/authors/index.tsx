@@ -1,26 +1,26 @@
 import { BackButton } from "@/components/BackButton";
 import { Button } from "@/components/Button";
 import { PageHeader } from "@/components/PageHeader";
-import { deleteBook, getBookCoverUrl, getBooks } from "@/services/books";
-import { Book } from "@/types/book";
+import { deleteAuthor, getAuthorPhotoUrl, getAuthors } from "@/services/authors";
+import { Author } from "@/types/author";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useState } from "react";
 import { ActivityIndicator, Alert, FlatList, Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function BookList() {
+export default function AuthorList() {
     const router = useRouter();
-    const [books, setBooks] = useState<Book[]>([]);
+    const [authors, setAuthors] = useState<Author[]>([]);
     const [loading, setLoading] = useState(true);
 
-    async function loadBooks() {
+    async function loadAuthors() {
         setLoading(true);
-        const response = await getBooks();
+        const response = await getAuthors();
 
         if (response.ok) {
-            setBooks(response.data);
+            setAuthors(response.data);
         } else {
-            Alert.alert("Erro", "Não foi possível carregar os livros");
+            Alert.alert("Erro", "Não foi possível carregar os autores");
         }
 
         setLoading(false);
@@ -28,14 +28,14 @@ export default function BookList() {
 
     useFocusEffect(
         useCallback(() => {
-            loadBooks();
+            loadAuthors();
         }, [])
     );
 
     function confirmDelete(id: number) {
         Alert.alert(
-            "Excluir livro",
-            "Tem certeza que deseja excluir este livro?",
+            "Excluir autor",
+            "Tem certeza que deseja excluir este autor?",
             [
                 { text: "Cancelar", style: "cancel" },
                 { text: "Excluir", style: "destructive", onPress: () => handleDelete(id) },
@@ -44,11 +44,11 @@ export default function BookList() {
     }
 
     async function handleDelete(id: number) {
-        const response = await deleteBook(id);
+        const response = await deleteAuthor(id);
 
         if (response.ok) {
-            Alert.alert("Sucesso", "Livro removido com sucesso!");
-            loadBooks();
+            Alert.alert("Sucesso", "Autor removido com sucesso!");
+            loadAuthors();
         } else {
             Alert.alert("Erro", "Erro interno do servidor");
         }
@@ -68,39 +68,38 @@ export default function BookList() {
 
             <View className="flex-1 px-5 pt-5">
                 <View className="items-center">
-                    <PageHeader title="Livros" />
+                    <PageHeader title="Autores" />
                 </View>
 
                 <View className="items-end mb-6">
-                    <Button onPress={() => router.push("/(admin)/books/form")}>
+                    <Button onPress={() => router.push("/(admin)/authors/form")}>
                         Cadastrar
                     </Button>
                 </View>
 
                 <FlatList
-                    data={books}
+                    data={authors}
                     keyExtractor={(item) => String(item.id)}
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ gap: 14, paddingBottom: 24 }}
                     renderItem={({ item }) => (
                         <View className="flex-row bg-cardBg dark:bg-dark-cardBg rounded-2xl border border-textPrimary/15 dark:border-dark-textPrimary/15 p-5">
                             <Image
-                                source={{ uri: getBookCoverUrl(item.coverImage) }}
+                                source={{ uri: getAuthorPhotoUrl(item.photo) }}
                                 className="w-16 h-24 rounded-lg mr-4"
                                 resizeMode="cover"
                             />
 
                             <View className="flex-1">
                                 <Text className="text-xl font-semibold text-textPrimary dark:text-dark-textPrimary">
-                                    {item.title}
+                                    {item.name}
                                 </Text>
 
-                                <Text className="text-base text-textPrimary/70 dark:text-dark-textPrimary/70 mt-1">
-                                    {item.author?.name}
-                                </Text>
-
-                                <Text className="text-base font-semibold text-textPrimary dark:text-dark-textPrimary mt-2">
-                                    R$ {item.price.toFixed(2)}
+                                <Text
+                                    className="text-base text-textPrimary/70 dark:text-dark-textPrimary/70 mt-1"
+                                    numberOfLines={2}
+                                >
+                                    {item.bio}
                                 </Text>
 
                                 <View className="flex-row items-center mt-4 pt-3 border-t border-textPrimary/10 dark:border-dark-textPrimary/10">
@@ -108,7 +107,7 @@ export default function BookList() {
                                         variant="outline"
                                         onPress={() =>
                                             router.push({
-                                                pathname: "/(admin)/books/form",
+                                                pathname: "/(admin)/authors/form",
                                                 params: { id: String(item.id) },
                                             })
                                         }
@@ -129,10 +128,10 @@ export default function BookList() {
                     ListEmptyComponent={
                         <View className="items-center py-16 px-5">
                             <Text className="text-lg font-medium text-textPrimary/50 dark:text-dark-textPrimary/50 text-center">
-                                Nenhum livro cadastrado
+                                Nenhum autor cadastrado
                             </Text>
                             <Text className="text-base text-textPrimary/40 dark:text-dark-textPrimary/40 mt-2 text-center">
-                                Cadastre um livro para começar.
+                                Cadastre um autor para começar.
                             </Text>
                         </View>
                     }
