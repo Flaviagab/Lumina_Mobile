@@ -8,6 +8,7 @@ type IconButtonProps = {
     onPress?: () => void;
     children: string;
     variant?: "default" | "filled" | "danger";
+    className?: string;
 };
 
 export const IconButton = (props: IconButtonProps) => {
@@ -36,7 +37,7 @@ export const IconButton = (props: IconButtonProps) => {
             : theme.bodyColor;
 
     return (
-        <Pressable onPress={onPress} hitSlop={8} className={`self-start flex-row items-center gap-2 py-2 px-4 rounded-full ${containerStyle}`}>
+        <Pressable onPress={onPress} hitSlop={8} className={`self-start flex-row items-center gap-2 py-2 px-4 rounded-full ${containerStyle} ${props.className ?? ""}`}>
             <Feather
                 name={icon}
                 size={18}
