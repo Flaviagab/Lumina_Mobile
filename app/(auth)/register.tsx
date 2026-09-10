@@ -10,7 +10,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Alert, KeyboardAvoidingView, Platform, ScrollView, Text, View } from "react-native";
+import { Alert, KeyboardAvoidingView, ScrollView, Text, View } from "react-native";
 
 type RegisterForm = {
     name: string;
@@ -134,14 +134,15 @@ export default function Register() {
     }
 
     return (
-        <KeyboardAvoidingView className="flex-1"
-                        behavior={Platform.OS === "ios" ? "padding" : "height"}
-                        keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0}>
+        <KeyboardAvoidingView 
+            className="flex-1"
+             behavior="padding">
+            
         <ScrollView
             className="flex-1 bg-bodyBg dark:bg-dark-bodyBg"
             contentContainerClassName="px-6 py-10 items-center"
         >
-            <Text className="text-2xl font-bold text-[#3D3B6B] dark:text-[#E5E4FA] mb-6">
+            <Text className="text-2xl font-bold text-[#3D3B6B] dark:text-[#E5E4FA] my-6">
                 Faça seu Cadastro
             </Text>
 
@@ -270,7 +271,7 @@ export default function Register() {
                     Cadastrar
                 </Button>
 
-                <Button variant="outline" onPress={() => router.push("/login")} >
+                <Button variant="ghost" className="w-48" onPress={() => router.push("/login")} >
                     Já tenho uma conta
                 </Button>
             </View>
