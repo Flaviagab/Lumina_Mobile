@@ -71,7 +71,7 @@ export default function Login() {
             />
 
             <Button onPress={handleLogin}>
-                {loading ? "Entrando..." : "Entrar"}
+                Entrar
             </Button>
 
             <View className="flex-row justify-center items-center mt-2">
@@ -80,8 +80,8 @@ export default function Login() {
                 </Text>
 
                 <Button
-                    variant="outline"
-                    className="w-auto h-auto border-0 mb-0 ml-2"
+                    variant="ghost"
+                    className="w-auto h-auto border-0 mb-0 mt-3 ml-2"
                     onPress={() => router.push("/register")}
                 >
                     Criar conta
