@@ -12,7 +12,7 @@ export function AuthorList({ authors, onViewBooks, onViewMore }: AuthorListProps
     return (
         <FlatList
             data={authors}
-            keyExtractor={(item) => String(item.id_autor)}
+            keyExtractor={(item) => String(item.id)}
             renderItem={({ item }) => (
                 <AuthorCard
                     author={item}

@@ -1,5 +1,6 @@
 import { Book, BookInput } from "@/types/book";
 import { api } from "./api";
+import { mapAuthor } from "./authors";
 import { mapCategory } from "./categories";
 import { handleError, handleResponse } from "./response";
 
@@ -18,7 +19,7 @@ function mapBook(book: any): Book {
         featured: book.destaque === 1 || book.destaque === true,
         createdAt: book.createdAt,
         updatedAt: book.updatedAt,
-        author: book.autor,
+        author: book.autor ? mapAuthor(book.autor) : book.autor,
         category: book.categoria ? mapCategory(book.categoria) : book.categoria,
         publisher: book.editora,
         collection: book.colecao,

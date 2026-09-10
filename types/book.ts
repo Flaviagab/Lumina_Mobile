@@ -1,11 +1,5 @@
+import { Author } from "./author";
 import { Category } from "./category";
-
-export type Author = {
-    id_autor: number;
-    nome: string;
-    biografia: string;
-    foto: string;
-};
 
 export type Publisher = {
     id_editora: number;
