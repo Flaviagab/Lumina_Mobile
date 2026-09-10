@@ -27,7 +27,7 @@ export function BooksCarousel({
                 data={books}
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                keyExtractor={(item) => item.id_livro.toString()}
+                keyExtractor={(item) => item.id.toString()}
                 contentContainerStyle={{ paddingLeft: 16 }}
                 renderItem={({ item }) => (
                     <FeaturedBookCard

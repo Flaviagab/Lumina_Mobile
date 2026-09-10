@@ -12,7 +12,7 @@ export function BookList({ books, onRead, onViewMore }: BookListProps) {
     return (
         <FlatList
             data={books}
-            keyExtractor={(item) => String(item.id_livro)}
+            keyExtractor={(item) => String(item.id)}
             renderItem={({ item }) => (
                 <BookCard
                     book={item}

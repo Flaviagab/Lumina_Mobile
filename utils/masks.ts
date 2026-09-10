@@ -6,3 +6,12 @@ export function formatCpf(value: string) {
         .replace(/(\d{3})(\d)/, "$1.$2")
         .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
 }
+
+export function formatPrice(digits: string) {
+    const number = Number(digits) / 100;
+
+    return number.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+    });
+}

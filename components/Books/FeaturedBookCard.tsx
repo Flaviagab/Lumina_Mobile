@@ -10,8 +10,8 @@ type FeaturedBookCardProps = {
 };
 
 export function FeaturedBookCard({ book, onRead, onViewMore }: FeaturedBookCardProps) {
-    const imageUrl = book.capa_imagem
-        ? `${api.defaults.baseURL}/uploads/${book.capa_imagem}`
+    const imageUrl = book.coverImage
+        ? `${api.defaults.baseURL}/uploads/${book.coverImage}`
         : null;
 
     return (
@@ -31,22 +31,22 @@ export function FeaturedBookCard({ book, onRead, onViewMore }: FeaturedBookCardP
                     numberOfLines={2}
                     className="text-base font-semibold text-textPrimary dark:text-dark-textPrimary mb-1"
                 >
-                    {book.titulo}
+                    {book.title}
                 </Text>
 
                 <Text
                     numberOfLines={1}
                     className="text-xs text-textPrimary dark:text-dark-textPrimary opacity-80 mb-0.5"
                 >
-                    {book.autor?.nome}
+                    {book.author?.nome}
                 </Text>
 
-                {book.editora ? (
+                {book.publisher ? (
                     <Text
                         numberOfLines={1}
                         className="text-xs text-textPrimary dark:text-dark-textPrimary opacity-60 mb-3"
                     >
-                        {book.editora.nome}
+                        {book.publisher.nome}
                     </Text>
                 ) : null}
 

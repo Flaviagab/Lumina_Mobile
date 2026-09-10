@@ -27,7 +27,7 @@ export default function Home() {
     }
 
     async function handleReadBook(book: Book) {
-        const pdfUrl = getBookPdfUrl(book.arquivo_pdf);
+        const pdfUrl = getBookPdfUrl(book.pdfFile);
 
         await WebBrowser.openBrowserAsync(pdfUrl);
 

@@ -11,8 +11,8 @@ type BookCardProps = {
 
 export function BookCard({ book, onRead, onViewMore }: BookCardProps) {
     
-    const imageUrl = book.capa_imagem
-        ? `${api.defaults.baseURL}/uploads/${book.capa_imagem}`
+    const imageUrl = book.coverImage
+        ? `${api.defaults.baseURL}/uploads/${book.coverImage}`
         : null;
 
     return (
@@ -32,22 +32,22 @@ export function BookCard({ book, onRead, onViewMore }: BookCardProps) {
                     numberOfLines={2}
                     className="text-lg font-medium text-textPrimary dark:text-dark-textPrimary mb-1"
                 >
-                    {book.titulo}
+                    {book.title}
                 </Text>
 
                 <Text
                     numberOfLines={1}
                     className="text-sm text-textPrimary dark:text-dark-textPrimary mb-1 opacity-80"
                 >
-                    {book.autor?.nome}
+                    {book.author?.nome}
                 </Text>
 
-                {book.editora ? (
+                {book.publisher ? (
                     <Text
                         numberOfLines={1}
                         className="text-xs text-textPrimary dark:text-dark-textPrimary mb-2 opacity-60"
                     >
-                        {book.editora.nome}
+                        {book.publisher.nome}
                     </Text>
                 ) : null}
 

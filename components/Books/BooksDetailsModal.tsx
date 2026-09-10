@@ -29,7 +29,7 @@ export function BookDetailsModal({
                     >
                         <View className="flex-row justify-between items-center mb-5">
                             <Text className="text-2xl font-bold text-textPrimary dark:text-dark-textPrimary flex-1 mr-3">
-                                {book.titulo}
+                                {book.title}
                             </Text>
 
                             <Pressable onPress={onClose}>
@@ -40,7 +40,7 @@ export function BookDetailsModal({
                         </View>
 
                         <Text className="text-base text-textPrimary dark:text-dark-textPrimary mb-5">
-                            {book.descricao}
+                            {book.description}
                         </Text>
 
                         <Text className="text-lg font-semibold text-textPrimary dark:text-dark-textPrimary mb-2">
@@ -48,7 +48,7 @@ export function BookDetailsModal({
                         </Text>
 
                         <Text className="text-base text-textPrimary dark:text-dark-textPrimary mb-5">
-                            {book.autor.nome}
+                            {book.author.nome}
                         </Text>
 
                         <Text className="text-lg font-semibold text-textPrimary dark:text-dark-textPrimary mb-2">
@@ -56,7 +56,7 @@ export function BookDetailsModal({
                         </Text>
 
                         <Text className="text-base text-textPrimary dark:text-dark-textPrimary mb-5">
-                            {book.categoria.nome}
+                            {book.category.name}
                         </Text>
 
                         <Text className="text-lg font-semibold text-textPrimary dark:text-dark-textPrimary mb-2">
@@ -64,17 +64,17 @@ export function BookDetailsModal({
                         </Text>
 
                         <Text className="text-base text-textPrimary dark:text-dark-textPrimary mb-5">
-                            {book.editora.nome}
+                            {book.publisher.nome}
                         </Text>
 
-                        {book.colecao && (
+                        {book.collection && (
                             <>
                                 <Text className="text-lg font-semibold text-textPrimary dark:text-dark-textPrimary mb-2">
                                     Coleção
                                 </Text>
 
                                 <Text className="text-base text-textPrimary dark:text-dark-textPrimary mb-5">
-                                    {book.colecao.nome}
+                                    {book.collection.nome}
                                 </Text>
                             </>
                         )}

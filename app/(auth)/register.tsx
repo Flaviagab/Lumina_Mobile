@@ -10,7 +10,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Alert, ScrollView, Text, View } from "react-native";
+import { Alert, KeyboardAvoidingView, Platform, ScrollView, Text, View } from "react-native";
 
 type RegisterForm = {
     name: string;
@@ -134,6 +134,9 @@ export default function Register() {
     }
 
     return (
+        <KeyboardAvoidingView className="flex-1"
+                        behavior={Platform.OS === "ios" ? "padding" : "height"}
+                        keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0}>
         <ScrollView
             className="flex-1 bg-bodyBg dark:bg-dark-bodyBg"
             contentContainerClassName="px-6 py-10 items-center"
@@ -272,5 +275,6 @@ export default function Register() {
                 </Button>
             </View>
         </ScrollView>
+        </KeyboardAvoidingView>
     );
 }
