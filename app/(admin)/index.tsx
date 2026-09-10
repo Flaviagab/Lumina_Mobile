@@ -6,10 +6,8 @@ import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const PANEL_OPTIONS = [
-    {
-        label: "Categorias",
-        href: "/(admin)/categories",
-    },
+    { label: "Categorias", href: "/(admin)/categories" },
+    { label: "Livros", href: "/(admin)/books" },
 ] as const;
 
 export default function Panel() {

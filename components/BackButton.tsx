@@ -9,6 +9,7 @@ export function BackButton() {
         <View className="absolute top-20 left-6 z-10">
             <IconButton
                 icon="arrow-left"
+                variant="filled"
                 onPress={() => router.back()}
             > </IconButton>
         </View>

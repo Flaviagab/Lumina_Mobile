@@ -1,15 +1,10 @@
+import { Category } from "./category";
+
 export type Author = {
     id_autor: number;
     nome: string;
     biografia: string;
     foto: string;
-};
-
-export type Category = {
-    id_categoria: number;
-    nome: string;
-    descricao: string;
-    destaque: boolean;
 };
 
 export type Publisher = {
@@ -25,22 +20,35 @@ export type Collection = {
 } | null;
 
 export type Book = {
-    id_livro: number;
-    id_autor: number;
-    titulo: string;
-    descricao: string;
-    preco: number;
-    capa_imagem: string;
-    arquivo_pdf: string;
-    id_categoria: number;
-    id_editora: number;
-    id_colecao: number | null;
-    destaque: boolean;
+    id: number;
+    authorId: number;
+    title: string;
+    description: string;
+    price: number;
+    coverImage: string;
+    pdfFile: string;
+    categoryId: number;
+    publisherId: number;
+    collectionId: number | null;
+    featured: boolean;
     createdAt: string;
     updatedAt: string;
 
-    autor: Author;
-    categoria: Category;
-    editora: Publisher;
-    colecao: Collection;
+    author: Author;
+    category: Category;
+    publisher: Publisher;
+    collection: Collection;
+};
+
+export type BookInput = {
+    title: string;
+    description: string;
+    price: number;
+    categoryId: number;
+    authorId: number;
+    publisherId: number;
+    collectionId?: number | null;
+    featured?: boolean;
+    coverImage?: { uri: string; name: string; type: string };
+    pdfFile?: { uri: string; name: string; type: string };
 };

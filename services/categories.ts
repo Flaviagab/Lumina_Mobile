@@ -2,7 +2,7 @@ import { Category, CategoryInput } from "@/types/category";
 import { api } from "./api";
 import { handleError, handleResponse } from "./response";
 
-function mapCategory(category: any): Category {
+export function mapCategory(category: any): Category {
     return {
         id: category.id_categoria,
         name: category.nome,

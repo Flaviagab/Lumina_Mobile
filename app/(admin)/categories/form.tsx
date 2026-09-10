@@ -3,11 +3,7 @@ import { Button } from "@/components/Button";
 import { FormCard } from "@/components/FormCard";
 import { Input } from "@/components/Input";
 import { PageHeader } from "@/components/PageHeader";
-import {
-    createCategory,
-    getCategoryById,
-    updateCategory,
-} from "@/services/categories";
+import { createCategory, getCategoryById, updateCategory } from "@/services/categories";
 import { CategoryInput } from "@/types/category";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
@@ -104,7 +100,7 @@ export default function CategoryForm() {
         <SafeAreaView className="flex-1 bg-bodyBg dark:bg-dark-bodyBg">
             <BackButton />
 
-            <View className="flex-1 px-5 pt-5">
+            <View className="flex-1 px-5 pt-20">
                 <PageHeader
                     title={
                         isEditing

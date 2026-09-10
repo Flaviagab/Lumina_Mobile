@@ -7,7 +7,7 @@ type IconButtonProps = {
     icon: ComponentProps<typeof Feather>["name"];
     onPress?: () => void;
     children: string;
-    variant?: "default" | "danger";
+    variant?: "default" | "filled" | "danger";
 };
 
 export const IconButton = (props: IconButtonProps) => {
@@ -15,17 +15,25 @@ export const IconButton = (props: IconButtonProps) => {
     const { icon, onPress, children, variant = "default" } = props;
 
     const isDanger = variant === "danger";
+    const isFilled = variant === "filled";
 
     const containerStyle = isDanger
         ? "border-transparent"
-        : "border border-bodyColor dark:border-dark-bodyColor";
+        : isFilled
+            ? "bg-[#7573A8] dark:bg-[#9A98D1] border-transparent"
+            : "border border-bodyColor dark:border-dark-bodyColor";
 
     const textStyle = isDanger
         ? "text-red-500"
-        : "text-bodyColor dark:text-dark-bodyColor";
+        : isFilled
+            ? "text-white"
+            : "text-bodyColor dark:text-dark-bodyColor";
 
-    const iconColor = isDanger ? "#DC2626" : theme.bodyColor;
-
+    const iconColor = isDanger
+        ? "#DC2626"
+        : isFilled
+            ? "#FFFFFF"
+            : theme.bodyColor;
 
     return (
         <Pressable onPress={onPress} hitSlop={8} className={`self-start flex-row items-center gap-2 py-2 px-4 rounded-full ${containerStyle}`}>
