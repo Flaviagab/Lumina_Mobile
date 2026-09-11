@@ -74,7 +74,7 @@ export function BookDetailsModal({
                                 </Text>
 
                                 <Text className="text-base text-textPrimary dark:text-dark-textPrimary mb-5">
-                                    {book.collection.nome}
+                                    {book.collection.name}
                                 </Text>
                             </>
                         )}

@@ -8,10 +8,12 @@ import { useTheme } from "@/contexts/theme/themeContext";
 import { getAuthors } from "@/services/authors";
 import { createBook, getBookById, updateBook } from "@/services/books";
 import { getCategories } from "@/services/categories";
+import { getCollections } from "@/services/collections";
 import { getPublishers } from "@/services/publishers";
 import { Author } from "@/types/author";
 import { BookInput } from "@/types/book";
 import { Category } from "@/types/category";
+import { Collection } from "@/types/collection";
 import { Publisher } from "@/types/publisher";
 import { formatPrice } from "@/utils/masks";
 import * as DocumentPicker from "expo-document-picker";
@@ -34,10 +36,12 @@ export default function BookForm() {
     const [categoryId, setCategoryId] = useState<number>();
     const [authorId, setAuthorId] = useState<number>();
     const [publisherId, setPublisherId] = useState<number>();
+    const [collectionId, setCollectionId] = useState<number>();
 
     const [categories, setCategories] = useState<Category[]>([]);
     const [authors, setAuthors] = useState<Author[]>([]);
     const [publishers, setPublishers] = useState<Publisher[]>([]);
+    const [collections, setCollections] = useState<Collection[]>([]);
 
     const [coverImage, setCoverImage] = useState<{ uri: string; name: string; type: string }>();
     const [pdfFile, setPdfFile] = useState<{ uri: string; name: string; type: string }>();
@@ -47,15 +51,17 @@ export default function BookForm() {
 
     useEffect(() => {
         async function loadData() {
-            const [categoriesResponse, authorsResponse, publishersResponse] = await Promise.all([
+            const [categoriesResponse, authorsResponse, publishersResponse, collectionsResponse] = await Promise.all([
                 getCategories(),
                 getAuthors(),
                 getPublishers(),
+                getCollections(),
             ]);
 
             if (categoriesResponse.ok) setCategories(categoriesResponse.data);
             if (authorsResponse.ok) setAuthors(authorsResponse.data);
             if (publishersResponse.ok) setPublishers(publishersResponse.data);
+            if (collectionsResponse.ok) setCollections(collectionsResponse.data);
 
             if (isEditing) {
                 const response = await getBookById(Number(id));
@@ -68,6 +74,7 @@ export default function BookForm() {
                     setCategoryId(response.data.categoryId);
                     setAuthorId(response.data.authorId);
                     setPublisherId(response.data.publisherId);
+                    setCollectionId(response.data.collection?.id);
                 } else {
                     Alert.alert("Erro", "Não foi possível carregar o livro");
                     router.back();
@@ -144,6 +151,7 @@ export default function BookForm() {
             categoryId,
             authorId,
             publisherId,
+            collectionId: collectionId ?? null,
             featured,
             coverImage,
             pdfFile,
@@ -237,8 +245,18 @@ export default function BookForm() {
                         <Select
                             label="Editora"
                             value={publisherId}
-                            options={publishers.map((publisher) => ({ label: publisher.name, value: publisher.id}))}
+                            options={publishers.map((publisher) => ({ label: publisher.name, value: publisher.id }))}
                             onChange={setPublisherId}
+                        />
+
+                        <Select
+                            label="Coleção"
+                            value={collectionId}
+                            options={[
+                                { label: "Nenhuma", value: 0 },
+                                ...collections.map((collection) => ({ label: collection.name, value: collection.id })),
+                            ]}
+                            onChange={(value) => setCollectionId(value === 0 ? undefined : value)}
                         />
 
                         <View className="mb-4">

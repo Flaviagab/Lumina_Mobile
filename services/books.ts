@@ -2,6 +2,7 @@ import { Book, BookInput } from "@/types/book";
 import { api } from "./api";
 import { mapAuthor } from "./authors";
 import { mapCategory } from "./categories";
+import { mapCollection } from "./collections";
 import { mapPublisher } from "./publishers";
 import { handleError, handleResponse } from "./response";
 
@@ -23,7 +24,7 @@ function mapBook(book: any): Book {
         author: book.autor ? mapAuthor(book.autor) : book.autor,
         category: book.categoria ? mapCategory(book.categoria) : book.categoria,
         publisher: book.editora ? mapPublisher(book.editora) : book.editora,
-        collection: book.colecao,
+        collection: book.colecao ? mapCollection(book.colecao) : null,
     };
 }
 

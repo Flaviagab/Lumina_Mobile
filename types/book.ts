@@ -1,12 +1,7 @@
 import { Author } from "./author";
 import { Category } from "./category";
+import { Collection } from "./collection";
 import { Publisher } from "./publisher";
-
-export type Collection = {
-    id_colecao: number;
-    nome: string;
-    descricao: string;
-} | null;
 
 export type Book = {
     id: number;
@@ -26,7 +21,7 @@ export type Book = {
     author: Author;
     category: Category;
     publisher: Publisher;
-    collection: Collection;
+    collection: Collection | null;
 };
 
 export type BookInput = {
