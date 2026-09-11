@@ -46,7 +46,7 @@ export function FeaturedBookCard({ book, onRead, onViewMore }: FeaturedBookCardP
                         numberOfLines={1}
                         className="text-xs text-textPrimary dark:text-dark-textPrimary opacity-60 mb-3"
                     >
-                        {book.publisher.nome}
+                        {book.publisher.name}
                     </Text>
                 ) : null}
 

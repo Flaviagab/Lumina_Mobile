@@ -9,6 +9,8 @@ const PANEL_OPTIONS = [
     { label: "Categorias", href: "/(admin)/categories" },
     { label: "Livros", href: "/(admin)/books" },
     { label: "Autores", href: "/(admin)/authors" },
+    { label: "Editoras", href: "/(admin)/publishers" },
+    { label: "Coleções", href: "/(admin)/collections" },
 
 ] as const;
 
