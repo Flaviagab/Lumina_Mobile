@@ -39,7 +39,7 @@ export function BookCard({ book, onRead, onViewMore }: BookCardProps) {
                     numberOfLines={1}
                     className="text-sm text-textPrimary dark:text-dark-textPrimary mb-1 opacity-80"
                 >
-                    {book.author?.nome}
+                    {book.author?.name}
                 </Text>
 
                 {book.publisher ? (
