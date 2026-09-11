@@ -1,11 +1,6 @@
 import { Author } from "./author";
 import { Category } from "./category";
-
-export type Publisher = {
-    id_editora: number;
-    nome: string;
-    descricao: string;
-};
+import { Publisher } from "./publisher";
 
 export type Collection = {
     id_colecao: number;
