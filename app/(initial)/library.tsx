@@ -1,30 +1,44 @@
 import { BookList } from "@/components/Books/BookList";
+import { BookDetailsModal } from "@/components/Books/BooksDetailsModal";
 import { H1 } from "@/components/Text";
-import { getBooks } from "@/services/books";
+import { getBookPdfUrl, getBooks } from "@/services/books";
 import type { Book } from "@/types/book";
-import { useFocusEffect } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Books() {
     const [books, setBooks] = useState<Book[]>([]);
+    const [selectedBook, setSelectedBook] = useState<Book | null>(null);
 
-useFocusEffect(
-    useCallback(() => {
-        async function loadBooks() {
-            const response = await getBooks();
+    async function handleReadBook(book: Book) {
+        const pdfUrl = getBookPdfUrl(book.pdfFile);
+        router.push({
+            pathname: "/(pdfViewer)",
+            params: { url: pdfUrl },
+        });
+    }
 
-            if (response.ok) {
-                setBooks(response.data);
-            } else {
-                console.log("Erro ao buscar livros:", response.data);
+    function handleViewMore(book: Book) {
+        setSelectedBook(book);
+    }
+
+    useFocusEffect(
+        useCallback(() => {
+            async function loadBooks() {
+                const response = await getBooks();
+
+                if (response.ok) {
+                    setBooks(response.data);
+                } else {
+                    console.log("Erro ao buscar livros:", response.data);
+                }
             }
-        }
 
-        loadBooks();
-    }, [])
-);
+            loadBooks();
+        }, [])
+    );
 
     return (
         <SafeAreaView className="flex-1 bg-bodyBg dark:bg-dark-bodyBg">
@@ -33,8 +47,14 @@ useFocusEffect(
             </View>
             <BookList
                 books={books}
-                onRead={(book) => console.log("Ler livro:", book)}
-                onViewMore={(book) => console.log("Ver mais do livro:", book)}
+                onRead={handleReadBook}
+                onViewMore={handleViewMore}
+            />
+
+            <BookDetailsModal
+                book={selectedBook}
+                visible={selectedBook !== null}
+                onClose={() => setSelectedBook(null)}
             />
         </SafeAreaView>
     );
