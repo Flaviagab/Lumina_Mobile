@@ -9,7 +9,6 @@ import type { Book } from "@/types/book";
 import type { Category } from "@/types/category";
 import type { Collection } from "@/types/collection";
 import { router, useFocusEffect } from "expo-router";
-import * as WebBrowser from "expo-web-browser";
 import { useCallback, useState } from "react";
 import { ScrollView } from "react-native";
 
@@ -33,8 +32,10 @@ export default function Home() {
 
     async function handleReadBook(book: Book) {
         const pdfUrl = getBookPdfUrl(book.pdfFile);
-
-        await WebBrowser.openBrowserAsync(pdfUrl);
+        router.push({
+            pathname: "/(pdfViewer)",
+            params: { url: pdfUrl },
+        });
     }
 
     function handleViewMore(book: Book) {
@@ -97,12 +98,18 @@ export default function Home() {
     return (
         <ScrollView className="flex-1 bg-bodyBg dark:bg-dark-bodyBg">
             <HomeHeader />
-
+            
             <FilterCarousel
                 title="Categorias"
                 items={categories}
                 selectedId={selectedId}
-                onSelect={(category) => setSelectedId(category.id)}
+                onSelect={(category) => {
+                    setSelectedId(category.id);
+                    router.push({
+                        pathname: "/(category)/[id]",
+                        params: { id: String(category.id) },
+                    });
+                }}
             />
 
             <BooksCarousel
