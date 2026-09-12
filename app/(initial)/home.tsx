@@ -1,12 +1,14 @@
 import { BooksCarousel } from "@/components/Books/BooksCarousel";
 import { BookDetailsModal } from "@/components/Books/BooksDetailsModal";
-import { CategoryCarousel } from "@/components/Category/CategoryCarousel";
+import { FilterCarousel } from "@/components/FilterCarousel";
 import { HomeHeader } from "@/components/HomeHeader";
 import { getBookPdfUrl, getBooks, getFeaturedBooks } from "@/services/books";
 import { getCategories } from "@/services/categories";
+import { getCollections } from "@/services/collections";
 import type { Book } from "@/types/book";
 import type { Category } from "@/types/category";
-import { useFocusEffect } from "expo-router";
+import type { Collection } from "@/types/collection";
+import { router, useFocusEffect } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
 import { useCallback, useState } from "react";
 import { ScrollView } from "react-native";
@@ -14,6 +16,9 @@ import { ScrollView } from "react-native";
 export default function Home() {
     const [categories, setCategories] = useState<Category[]>([]);
     const [selectedId, setSelectedId] = useState<number>();
+
+    const [collections, setCollections] = useState<Collection[]>([]);
+
     const [featuredBooks, setFeaturedBooks] = useState<Book[]>([]);
     const [newBooks, setNewBooks] = useState<Book[]>([]);
     const [popularBooks, setPopularBooks] = useState<Book[]>([]);
@@ -30,7 +35,6 @@ export default function Home() {
         const pdfUrl = getBookPdfUrl(book.pdfFile);
 
         await WebBrowser.openBrowserAsync(pdfUrl);
-
     }
 
     function handleViewMore(book: Book) {
@@ -44,6 +48,16 @@ export default function Home() {
             setCategories(response.data);
         } else {
             console.log("Erro ao buscar categorias:", response.data);
+        }
+    }
+
+    async function loadCollections() {
+        const response = await getCollections();
+
+        if (response.ok) {
+            setCollections(response.data);
+        } else {
+            console.log("Erro ao buscar coleções:", response.data);
         }
     }
 
@@ -74,6 +88,7 @@ export default function Home() {
     useFocusEffect(
         useCallback(() => {
             loadCategories();
+            loadCollections();
             loadFeaturedBooks();
             loadBooks();
         }, [])
@@ -83,8 +98,9 @@ export default function Home() {
         <ScrollView className="flex-1 bg-bodyBg dark:bg-dark-bodyBg">
             <HomeHeader />
 
-            <CategoryCarousel
-                categories={categories}
+            <FilterCarousel
+                title="Categorias"
+                items={categories}
                 selectedId={selectedId}
                 onSelect={(category) => setSelectedId(category.id)}
             />
@@ -94,6 +110,19 @@ export default function Home() {
                 books={featuredBooks}
                 onRead={handleReadBook}
                 onViewMore={handleViewMore}
+            />
+
+            <FilterCarousel
+                title="Coleções"
+                items={collections}
+                onSelect={(collection) => {
+                    router.push({
+                        pathname: "/(collection)/[id]",
+                        params: {
+                            id: String(collection.id),
+                        },
+                    });
+                }}
             />
 
             <BooksCarousel

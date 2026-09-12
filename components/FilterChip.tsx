@@ -6,7 +6,7 @@ type Props = {
     onPress: () => void;
 };
 
-export const CategoryChip = ({ label, selected, onPress }: Props) => {
+export const FilterChip = ({ label, selected, onPress }: Props) => {
     return (
         <Pressable
             onPress={onPress}

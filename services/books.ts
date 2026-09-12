@@ -117,6 +117,21 @@ export async function getBooksByAuthor(id: number) {
     }
 }
 
+export async function getBooksByCollection(id: number) {
+    try {
+        const response = await api.get("/livros?colecao=" + id);
+        const result = handleResponse(response);
+
+        if (result.ok) {
+            result.data = result.data.map(mapBook);
+        }
+
+        return result;
+    } catch (error) {
+        return handleError(error);
+    }
+}
+
 export async function createBook(data: BookInput) {
     try {
         const response = await api.post("/livros", buildBookFormData(data), {
