@@ -1,12 +1,12 @@
 import { emitUnauthorized } from "@/contexts/auth/AuthEvents";
 import axios from "axios";
+import Constants from "expo-constants";
 import * as SecureStore from "expo-secure-store";
-import { Platform } from "react-native";
 
-const HOST = Platform.select({
-    android: "http://10.0.2.2:3000",
-    default: "http://192.168.1.163:3000"
-});
+const debuggerHost = Constants.expoConfig?.hostUri?.split(":")[0];
+export const HOST = debuggerHost
+    ? `http://${debuggerHost}:3000`
+    : "http://192.168.1.163:3000";
 
 export const api = axios.create({
     baseURL: HOST,

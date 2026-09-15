@@ -1,3 +1,4 @@
+import { HOST } from "@/services/api";
 import { Book, BookInput } from "@/types/book";
 import { api } from "./api";
 import { mapAuthor } from "./authors";
@@ -12,7 +13,6 @@ function mapBook(book: any): Book {
         authorId: book.id_autor,
         title: book.titulo,
         description: book.descricao,
-        price: book.preco,
         coverImage: book.capa_imagem,
         pdfFile: book.arquivo_pdf,
         categoryId: book.id_categoria,
@@ -33,7 +33,6 @@ function buildBookFormData(data: BookInput) {
 
     formData.append("titulo", data.title);
     formData.append("descricao", data.description);
-    formData.append("preco", String(data.price));
     formData.append("id_categoria", String(data.categoryId));
     formData.append("id_autor", String(data.authorId));
     formData.append("id_editora", String(data.publisherId));
@@ -179,9 +178,9 @@ export async function deleteBook(id: number) {
 }
 
 export function getBookPdfUrl(filename: string) {
-    return `http://10.0.2.2:3000/uploads/${filename}`;
+    return `${HOST}/uploads/${filename}`;
 }
 
 export function getBookCoverUrl(filename: string) {
-    return `http://10.0.2.2:3000/uploads/${filename}`;
+    return `${HOST}/uploads/${filename}`;
 }

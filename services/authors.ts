@@ -1,3 +1,4 @@
+import { HOST } from "@/services/api";
 import { Author, AuthorInput } from "@/types/author";
 import { api } from "./api";
 import { handleError, handleResponse } from "./response";
@@ -86,5 +87,5 @@ export async function deleteAuthor(id: number) {
 }
 
 export function getAuthorPhotoUrl(filename: string) {
-    return `http://10.0.2.2:3000/uploads/${filename}`;
+    return `${HOST}/uploads/${filename}`;
 }

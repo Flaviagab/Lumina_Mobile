@@ -99,10 +99,6 @@ export default function BookList() {
                                     {item.author?.name}
                                 </Text>
 
-                                <Text className="text-base font-semibold text-textPrimary dark:text-dark-textPrimary mt-2">
-                                    R$ {item.price.toFixed(2)}
-                                </Text>
-
                                 <View className="flex-row items-center mt-4 pt-3 border-t border-textPrimary/10 dark:border-dark-textPrimary/10">
                                     <Button
                                         variant="outline"
