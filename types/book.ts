@@ -8,7 +8,6 @@ export type Book = {
     authorId: number;
     title: string;
     description: string;
-    price: number;
     coverImage: string;
     pdfFile: string;
     categoryId: number;
@@ -27,7 +26,6 @@ export type Book = {
 export type BookInput = {
     title: string;
     description: string;
-    price: number;
     categoryId: number;
     authorId: number;
     publisherId: number;

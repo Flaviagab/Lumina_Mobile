@@ -2,7 +2,6 @@
 type BookFormInput = {
     title: string;
     description: string;
-    price: string;
     categoryId: string;
     authorId: string;
     coverUri: string;
@@ -14,7 +13,6 @@ export function buildBookFormData(data: BookFormInput) {
 
     formData.append("titulo", data.title);
     formData.append("descricao", data.description);
-    formData.append("preco", data.price);
     formData.append("id_categoria", data.categoryId);
     formData.append("id_autor", data.authorId);
 

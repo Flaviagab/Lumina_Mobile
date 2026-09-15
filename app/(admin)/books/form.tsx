@@ -15,7 +15,6 @@ import { BookInput } from "@/types/book";
 import { Category } from "@/types/category";
 import { Collection } from "@/types/collection";
 import { Publisher } from "@/types/publisher";
-import { formatPrice } from "@/utils/masks";
 import * as DocumentPicker from "expo-document-picker";
 import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -31,7 +30,6 @@ export default function BookForm() {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [priceDigits, setPriceDigits] = useState("");
     const [featured, setFeatured] = useState(false);
     const [categoryId, setCategoryId] = useState<number>();
     const [authorId, setAuthorId] = useState<number>();
@@ -69,7 +67,6 @@ export default function BookForm() {
                 if (response.ok) {
                     setTitle(response.data.title);
                     setDescription(response.data.description);
-                    setPriceDigits(String(Math.round(response.data.price * 100)));
                     setFeatured(response.data.featured);
                     setCategoryId(response.data.categoryId);
                     setAuthorId(response.data.authorId);
@@ -87,11 +84,6 @@ export default function BookForm() {
 
         loadData();
     }, [id]);
-
-    function handlePriceChange(text: string) {
-        const digits = text.replace(/\D/g, "");
-        setPriceDigits(digits);
-    }
 
     async function pickCoverImage() {
         const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -134,7 +126,7 @@ export default function BookForm() {
     }
 
     async function handleSubmit() {
-        if (!title || !description || !priceDigits || !categoryId || !authorId || !publisherId) {
+        if (!title || !description || !categoryId || !authorId || !publisherId) {
             Alert.alert("Atenção", "Preencha todos os campos obrigatórios");
             return;
         }
@@ -147,7 +139,6 @@ export default function BookForm() {
         const data: BookInput = {
             title,
             description,
-            price: Number(priceDigits) / 100,
             categoryId,
             authorId,
             publisherId,
@@ -217,23 +208,15 @@ export default function BookForm() {
                             multiline
                             numberOfLines={4}
                             style={{ textAlignVertical: "top" }}
-                            className="h-36 pt-3"
+                            className="h-56 pt-3"
                         />
 
-                        <Input
-                            label="Preço"
-                            value={formatPrice(priceDigits)}
-                            onChangeText={handlePriceChange}
-                            placeholder="R$ 0,00"
-                            keyboardType="numeric"
-                        />
                         <Select
                             label="Categoria"
                             value={categoryId}
                             options={categories.map((category) => ({ label: category.name, value: category.id }))}
                             onChange={setCategoryId}
                         />
-
 
                         <Select
                             label="Autor"
