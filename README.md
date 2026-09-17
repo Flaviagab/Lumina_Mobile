@@ -25,14 +25,16 @@ https://docs.google.com/document/d/1zH0nHSs0Qsa-eeoPck_fIWNAonI89X2ozjJp_NDVNeU/
 - **Backend/API:** Node.js, Express, Sequelize
 - **Banco de dados:** MySQL
 
-```
+
 
 ## Como rodar o projeto
 
 1. Clone o repositório
+
    ```bash
-   git clone <url-do-repositorio>
+   git clone https://github.com/Flaviagab/Lumina_Mobile.git
    ```
+
 2. Instale as dependências
    ```bash
    npm install
