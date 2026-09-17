@@ -86,14 +86,18 @@ export default function Home() {
         }
     }
 
-    useFocusEffect(
-        useCallback(() => {
-            loadCategories();
-            loadCollections();
-            loadFeaturedBooks();
-            loadBooks();
-        }, [])
-    );
+   useFocusEffect(
+    useCallback(() => {
+        async function carregarDados() {
+            await loadCategories();
+            await loadCollections();
+            await loadFeaturedBooks();
+            await loadBooks();
+        }
+
+        carregarDados();
+    }, [])
+);
 
     return (
         <ScrollView className="flex-1 bg-bodyBg dark:bg-dark-bodyBg">
